@@ -1,5 +1,5 @@
 /*!
- * enquire.js v2.1.6 - Awesome Media Queries in JavaScript
+ * enquire.js v2.1.7 - Awesome Media Queries in JavaScript
  * Copyright (c) 2017 Nick Williams - http://wicky.nillia.ms/enquire.js
  * License: MIT */
 
@@ -113,8 +113,14 @@ var isArray = Util.isArray;
  * @constructor
  */
 function MediaQueryDispatch () {
-    if(!window.matchMedia) {
-        throw new Error('matchMedia not present, legacy browsers require a polyfill');
+    if (!window.matchMedia) {
+        window.matchMedia = function() {
+            return {
+                matches: false,
+                addListener: function() {},
+                removeListener: function() {}
+            };
+        };
     }
 
     this.queries = {};
